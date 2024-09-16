@@ -1,8 +1,3 @@
-let saldo = 1000;
-const elementSaldo = document.querySelector(".saldo-valor .valor");
-if (elementSaldo != null) {
-    elementSaldo.textContent = saldo.toString();
-}
 const elementForm = document.querySelector(".block-nova-transacao form");
 elementForm.addEventListener("submit", function (event) {
     event.preventDefault();
@@ -15,17 +10,17 @@ elementForm.addEventListener("submit", function (event) {
     let tipoTransacao = inputTipoTransacao.value;
     let valor = inputValor.valueAsNumber;
     let data = new Date(inputData.value);
-    if (tipoTransacao == "Depósito") {
+    if (tipoTransacao == TipoTransacao.DEPOSITO) {
         saldo += valor;
     }
-    else if (tipoTransacao == "Transferência" || tipoTransacao == "Pagamento de Boleto") {
+    else if (tipoTransacao == TipoTransacao.TRANFERENCIA || tipoTransacao == TipoTransacao.PAGAMENTO_BOLETO) {
         saldo -= valor;
     }
     else {
         alert("Tipo de Transação é invalido");
         return;
     }
-    elementSaldo.textContent = saldo.toString();
+    elementSaldo.textContent = formatarMoeda(saldo);
     const novaTransacao = {
         tipoTransacao: tipoTransacao,
         valor: valor,
