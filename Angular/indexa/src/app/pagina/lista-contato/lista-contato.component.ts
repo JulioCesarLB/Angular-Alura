@@ -8,6 +8,7 @@ import { CabecalhoComponent } from '../../componentes/cabecalho/cabecalho.compon
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { Contato } from '../../componentes/contato/contato';
+import { PerfilContatoComponent } from '../perfil-contato/perfil-contato.component';
 
 @Component({
   selector: 'app-lista-contato',
@@ -17,7 +18,8 @@ import { Contato } from '../../componentes/contato/contato';
     SeparadorComponent,
     ContatoComponent,
     FormsModule,
-  RouterLink],
+  RouterLink,
+  ],
   templateUrl: './lista-contato.component.html',
   styleUrl: './lista-contato.component.css'
 })
@@ -31,7 +33,9 @@ export class ListaContatoComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.contatos = this.contatoService.obterContatos();
+    this.contatoService.obterContatos().subscribe(listaContatos =>{
+      this.contatos = listaContatos;
+    });
 
   }
 
